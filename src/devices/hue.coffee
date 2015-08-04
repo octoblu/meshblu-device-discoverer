@@ -15,8 +15,8 @@ class Hue extends EventEmitter
 
   search: =>
     debug 'searching for hue'
-    @bridgeHue = new HueUtil 'octoblu', null, @apikey?.username, @onUsernameChange
-    @bridgeHue.getRawBridges (error, bridges) =>
+    bridgeHue = new HueUtil 'octoblu', null, @apikey?.username, @onUsernameChange
+    bridgeHue.getRawBridges (error, bridges) =>
       return @emit 'error', error if error?
       _.each bridges, @foundBridge
 

@@ -13,13 +13,22 @@ class Discoverer extends EventEmitter
 
   start: =>
     debug 'Discoverer->start()'
-    _.delay @start, 30 * 1000
+    @startDevice @chromecast
+    @startDevice @lifx
+    @startDevice @hue
+    _.delay @search, 60 * 1000
+    @search()
+
+  search: =>
+    debug 'Discoverer->search()'
     @searchForDevice @chromecast
     @searchForDevice @lifx
     @searchForDevice @hue
 
   searchForDevice: (device) =>
     device.search()
+
+  startDevice: (device) =>
     device.on 'device', @emitDevice
     device.on 'update', @updateDevice
     device.on 'error', @emitError

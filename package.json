@@ -1,7 +1,7 @@
 {
   "name": "meshblu-device-discoverer",
   "repository": "octoblu/meshblu-device-discoverer",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "main": "connector.js",
   "scripts": {
     "preinstall": "node -e \"try{require('./skip-install.js')}catch(e){}\"",
@@ -9,11 +9,12 @@
     "test": "exit 0"
   },
   "dependencies": {
-    "chromecast-scanner": "^0.4.3",
+    "async": "^1.4.0",
     "coffee-script": "^1.9.0",
     "debug": "^2.1.0",
-    "hue-util": "^1.1.1",
+    "hue-util": "^1.1.2",
     "lodash": "^3.10.0",
+    "mdns": "^2.2.9",
     "meshblu": "^1.22.0",
     "node-lifx": "^0.1.1"
   },

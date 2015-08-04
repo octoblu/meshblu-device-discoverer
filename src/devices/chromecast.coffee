@@ -1,15 +1,20 @@
 {EventEmitter} = require 'events'
-scanner        = require 'chromecast-scanner'
+mdns           = require 'mdns'
+_              = require 'lodash'
 debug          = require('debug')('meshblu-device-discoverer:chromecast')
 
 class Chromecast extends EventEmitter
+  constructor: ->
+
+
   search: =>
     debug 'searching for chromecast'
-    scanner (error, service) =>
-      return debug 'error scanning', error if error?
-      @found service
+    browser = mdns.createBrowser mdns.tcp('googlecast')
+    browser.on 'serviceUp', @found
+    browser.start();
 
-  found: (chromecast) =>
+  found: (chromecast={}) =>
+    chromecast = _.pick chromecast, ['name', 'host', 'type', 'port', 'fullname', 'networkInterface', 'txtRecord', 'addresses']
     debug 'found chromecast', chromecast
     device =
       type: 'chromecast'

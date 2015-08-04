@@ -1,5 +1,7 @@
 'use strict';
 {EventEmitter} = require 'events'
+_              = require 'lodash'
+async          = require 'async'
 Discoverer     = require './src/discoverer'
 debug          = require('debug')('meshblu-device-discoverer:index')
 
@@ -17,6 +19,7 @@ class Plugin extends EventEmitter
     @options = {}
     @messageSchema = MESSAGE_SCHEMA
     @optionsSchema = OPTIONS_SCHEMA
+    @queue = async.queue @refreshQueue
 
   updateDevice: (properties={})=>
     @emit 'update', properties
@@ -24,18 +27,21 @@ class Plugin extends EventEmitter
   emitError: (error) =>
     debug 'emitting error', error
     @emit 'message',
-      devices: ['*']
+      devices: '*'
       topic: 'error'
       payload:
         error: error
 
   emitDevice: (device) =>
-    debug 'emitting device', device
-    @emit 'message',
-      devices: ['*']
+    @queue.push
+      devices: '*'
       topic: 'discovered_device'
-      payload:
-        device: device
+      payload: device
+
+  refreshQueue: (task, callback=->)=>
+    debug 'emitting device', task
+    @emit 'message', task
+    _.delay callback, 500
 
   onMessage: (message) =>
     payload = message.payload;
