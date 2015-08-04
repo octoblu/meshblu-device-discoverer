@@ -21,8 +21,8 @@ class Hue extends EventEmitter
       _.each bridges, @foundBridge
 
   startForBridge: (bridge) =>
-    @hue = new HueUtil 'octoblu', bridge?.internalipaddress, @apikey?.username, @onUsernameChange
-    @hue.getLights (error, lights) =>
+    hue = new HueUtil 'octoblu', bridge?.internalipaddress, @apikey?.username, @onUsernameChange
+    hue.getLights (error, lights) =>
       return @emit 'error', error if error?
       _.each _.keys(lights), (id) =>
         light = lights[id]
