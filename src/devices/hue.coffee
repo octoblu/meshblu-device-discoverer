@@ -5,20 +5,23 @@ debug          = require('debug')('meshblu-device-discoverer:hue')
 
 class Hue extends EventEmitter
   constructor: (@config)->
-    @username = @config.username
+    debug 'on config', apikey: @config.apikey
+    @apikey = @config.apikey || {}
 
   onUsernameChange: (username) =>
     debug 'onUsernameChange', username
-    @username = username
-    @emit 'update', username: @username
+    @apikey.username = username
+    @emit 'update', apikey: @apikey
 
   search: =>
     debug 'searching for hue'
-    @hue = new HueUtil 'octoblu', null, @username, @onUsernameChange
-    @hue.getRawBridges (error, bridges) =>
+    @bridgeHue = new HueUtil 'octoblu', null, @apikey?.username, @onUsernameChange
+    @bridgeHue.getRawBridges (error, bridges) =>
       return @emit 'error', error if error?
       _.each bridges, @foundBridge
 
+  startForBridge: (bridge) =>
+    @hue = new HueUtil 'octoblu', bridge?.internalipaddress, @apikey?.username, @onUsernameChange
     @hue.getLights (error, lights) =>
       return @emit 'error', error if error?
       _.each _.keys(lights), (id) =>
@@ -26,12 +29,12 @@ class Hue extends EventEmitter
         light.id = id
         @foundLight light
 
-  foundBridge: (ip) =>
+  foundBridge: (bridge) =>
     device =
       type: 'hue-bridge'
-      device:
-        ip: ip
+      device: bridge
     @emit 'device', device
+    @startForBridge bridge
 
   foundLight: (light) =>
     device =

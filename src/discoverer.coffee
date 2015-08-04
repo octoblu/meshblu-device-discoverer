@@ -1,9 +1,9 @@
 {EventEmitter} = require 'events'
 debug          = require('debug')('meshblu-device-discoverer:discoverer')
-
+_              = require 'lodash'
 Chromecast     = require './devices/chromecast'
 Lifx           = require './devices/lifx'
-Hue           = require './devices/hue'
+Hue            = require './devices/hue'
 
 class Discoverer extends EventEmitter
   constructor: (@config={})->
@@ -13,6 +13,7 @@ class Discoverer extends EventEmitter
 
   start: =>
     debug 'Discoverer->start()'
+    _.delay @start, 30 * 1000
     @searchForDevice @chromecast
     @searchForDevice @lifx
     @searchForDevice @hue
