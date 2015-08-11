@@ -16,7 +16,6 @@ class Discoverer extends EventEmitter
     @startDevice @chromecast
     @startDevice @lifx
     @startDevice @hue
-    _.delay @search, 60 * 1000
     @search()
 
   search: =>
@@ -24,6 +23,7 @@ class Discoverer extends EventEmitter
     @searchForDevice @chromecast
     @searchForDevice @lifx
     @searchForDevice @hue
+    _.delay @search, 60 * 1000
 
   searchForDevice: (device) =>
     device.search()
