@@ -4,16 +4,20 @@ _              = require 'lodash'
 debug          = require('debug')('meshblu-device-discoverer:lifx')
 
 class Lifx extends EventEmitter
-  search: =>
-    debug 'searching for lifx'
+  start: =>
+    debug 'starting for lifx'
     @client = new Client
     @client.on 'bulb-new', @found
+    @client.init()
+
+  search: =>
+    debug 'searching for lifx'
     lights = @client.lights()
     _.each lights, @found
-    @client.init()
 
   found: (light) =>
     delete light.client
+    debug 'found lifx light', light
     device =
       type: 'lifx'
       device: light

@@ -20,10 +20,11 @@ class Discoverer extends EventEmitter
 
   search: =>
     debug 'Discoverer->search()'
-    @searchForDevice @chromecast
-    @searchForDevice @lifx
     @searchForDevice @hue
-    _.delay @search, 60 * 1000
+    @searchForDevice @lifx
+    @searchForDevice @chromecast
+    debug 'searchInterval', @config.options.searchInterval
+    _.delay @search, @config.options.searchInterval || 60 * 1000
 
   searchForDevice: (device) =>
     device.search()
@@ -32,6 +33,7 @@ class Discoverer extends EventEmitter
     device.on 'device', @emitDevice
     device.on 'update', @updateDevice
     device.on 'error', @emitError
+    device.start()
 
   updateDevice: (properties={}) =>
     debug 'Discoverer->udpateDevice()'

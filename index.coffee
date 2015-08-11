@@ -7,7 +7,11 @@ debug          = require('debug')('meshblu-device-discoverer:index')
 
 MESSAGE_SCHEMA =
   type: 'object'
-  properties: {}
+  properties:
+    searchInterval:
+      type: 'number',
+      required: true
+      default: 60 * 1000
 
 OPTIONS_SCHEMA =
   type: 'object'
@@ -61,7 +65,7 @@ class Plugin extends EventEmitter
     @setOptions device.options
 
   setOptions: (options={}) =>
-    @options = options
+    @options = _.extend searchInterval: 60 * 1000, options
 
 module.exports =
   messageSchema: MESSAGE_SCHEMA
