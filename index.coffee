@@ -30,6 +30,7 @@ class Plugin extends EventEmitter
 
   emitError: (error) =>
     debug 'emitting error', error
+    return console.error error
     @emit 'message',
       devices: '*'
       topic: 'error'
