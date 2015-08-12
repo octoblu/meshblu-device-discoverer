@@ -34,7 +34,9 @@ class Hue extends EventEmitter
   foundBridge: (bridge) =>
     debug 'found hue-bridge', bridge
     device =
-      type: 'hue-bridge'
+      id: bridge.internalipaddress
+      type: 'device:hue'
+      connector: 'meshblu-hue'
       device: bridge
     @emit 'device', device
     @startForBridge bridge
@@ -42,7 +44,9 @@ class Hue extends EventEmitter
   foundLight: (light) =>
     debug 'found hue-light', light
     device =
-      type: 'hue-light'
+      id: light.id
+      type: 'device:hue-light'
+      connector: 'meshblu-hue-light'
       device:
         light: light
     @emit 'device', device

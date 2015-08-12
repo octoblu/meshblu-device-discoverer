@@ -7,13 +7,14 @@ class Chromecast extends EventEmitter
   constructor: ->
 
   start: =>
-
-  search: =>
-    debug 'searching for chromecast'
+    debug 'starting for chromecast'
     browser = mdns.createBrowser mdns.tcp('googlecast')
     browser.on 'serviceUp', @found 'serviceUp'
     browser.on 'serviceDown', @found 'serviceDown'
     browser.start();
+
+  search: =>
+    debug 'searching for chromecast'
 
   found: (state) =>
     (chromecast={}) =>
@@ -21,7 +22,9 @@ class Chromecast extends EventEmitter
       debug 'found chromecast', state: state, chromecast
       device =
         state: state
-        type: 'chromecast'
+        id: chromecast.name
+        type: 'device:chromecast'
+        connector: 'meshblu-chromecast'
         device: chromecast
       @emit 'device', device
 

@@ -7,15 +7,15 @@ debug          = require('debug')('meshblu-device-discoverer:index')
 
 MESSAGE_SCHEMA =
   type: 'object'
+  properties: {}
+
+OPTIONS_SCHEMA =
+  type: 'object'
   properties:
     searchInterval:
       type: 'number',
       required: true
       default: 60 * 1000
-
-OPTIONS_SCHEMA =
-  type: 'object'
-  properties: {}
 
 class Plugin extends EventEmitter
   constructor: ->

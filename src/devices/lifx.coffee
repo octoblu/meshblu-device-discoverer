@@ -19,7 +19,9 @@ class Lifx extends EventEmitter
     delete light.client
     debug 'found lifx light', light
     device =
-      type: 'lifx'
+      id: light.id
+      type: 'device:lifx-light'
+      connector: 'meshblu-lifx-light'
       device: light
     @emit 'device', device
 
