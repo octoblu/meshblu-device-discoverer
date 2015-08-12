@@ -24,7 +24,7 @@ class Discoverer extends EventEmitter
     @searchForDevice @lifx
     @searchForDevice @chromecast
     debug 'searchInterval', @config.options.searchInterval
-    _.delay @search, @config.options.searchInterval || 60 * 1000
+    _.delay @search, @config.options.searchInterval || 3 * 60 * 1000
 
   searchForDevice: (device) =>
     device.search()

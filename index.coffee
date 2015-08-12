@@ -15,7 +15,7 @@ OPTIONS_SCHEMA =
     searchInterval:
       type: 'number',
       required: true
-      default: 60 * 1000
+      default: 3 * 60 * 1000
 
 class Plugin extends EventEmitter
   constructor: ->
@@ -66,7 +66,7 @@ class Plugin extends EventEmitter
     @setOptions device.options
 
   setOptions: (options={}) =>
-    @options = _.extend searchInterval: 60 * 1000, options
+    @options = _.extend searchInterval: 3 * 60 * 1000, options
 
 module.exports =
   messageSchema: MESSAGE_SCHEMA
