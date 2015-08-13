@@ -29,6 +29,7 @@ class Hue extends EventEmitter
       _.each _.keys(lights), (id) =>
         light = lights[id]
         light.id = id
+        light.ipAddress = bridge?.internalipaddress
         @foundLight light
 
   foundBridge: (bridge) =>
