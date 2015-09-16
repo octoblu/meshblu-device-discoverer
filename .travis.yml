@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+- '0.11'
+addons:
+  apt:
+    packages:
+      - libavahi-compat-libdnssd-dev
+deploy:
+  - provider: npm
+    skip_cleanup: true
+    clean_up: false
+    email: serveradmin@octoblu.com
+    api_key:
+      secure: "GA+OyH7+/bgnbafayHf7md3On8aR+sSFCQNrI9EtGilmfiDUiLUx3u/CKeiTiaftRJR9rpgKGtn+VehITBEejem9EwJEOHCR04CsuAvL6C0URquWnHcc6Hp7iYT0U+nJXuqGED94BoqCRInPDIQwwiwTcUQr6//MWUfSD8p634zpVsYI5aARh0QKl3AcwOWPLo4jGw68ITApmCKQXU8S6Wu9tA54Y68COIm8lH928OfoWODpuoUwFFrQdzV5NawMPAUSSELeEi4MCcTmVushvYM7JyFdI/F2g9EH8hQK7ZAF8aIf1sfjkNNjyXb+Sh2ze2GPe5tMF6VkTxubFHNqcvm1oz3oYqefmrBSt29pMz26tzSyOmBrWYUOCZeBV9KXsnfhzavB3OZ3Z/JZmBeSjFMrOJK3jcIz9/zG30M32sd41AyIC5dz6ZpZN1Y8jD7H/ZILk6AVnX5x48VcNvK/FtLF3O7RPkeP9uUGlOgp3EldESjlGxUwqr32HpK3BwFGf8SNpwsKlERGSabv0z3vmwgbL8XYLIK/VVZ8tVdVPw+Zg/fk6Qxivh2BDXvzBKm62Ev5lRa4HBKEc6C22XlkA8VTsas5GoZjW44IKOO6Dbh0AA+86oglyTvRCnJsF4QOu7XrSLXpGyRg5LwvASpxEPeP3e2m4UNo5jIkCez8huY="
+    on:
+      tags: true
+      all_branches: true
+      node: '0.11'

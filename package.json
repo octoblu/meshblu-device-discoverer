@@ -1,7 +1,7 @@
 {
   "name": "meshblu-device-discoverer",
   "repository": "octoblu/meshblu-device-discoverer",
-  "version": "2.0.3",
+  "version": "2.1.1",
   "main": "main.js",
   "scripts": {
     "preinstall": "node -e \"try{require('./skip-install.js')}catch(e){}\"",
@@ -9,13 +9,13 @@
     "test": "exit 0"
   },
   "dependencies": {
-    "async": "^1.4.0",
+    "async": "^1.4.2",
     "coffee-script": "^1.9.0",
     "debug": "^2.1.0",
     "hue-util": "^1.1.2",
-    "lodash": "^3.10.0",
-    "mdns": "^2.2.9",
-    "meshblu": "^1.22.0",
+    "lodash": "^3.10.1",
+    "mdns": "^2.2.10",
+    "meshblu": "^1.30.1",
     "node-lifx": "^0.1.1"
   },
   "bundledDependencies": [
@@ -23,6 +23,27 @@
     "tar",
     "fstream"
   ],
+  "platformDependencies": {
+    "darwin": [
+      "mDNSResponder"
+    ],
+    "win32": [
+      "Bonjour SDK for Windows. Make sure BONJOUR_SDK_HOME is set",
+      "node >=0.7.9",
+      "Microsoft Visual Studio Express"
+    ],
+    "win64": [
+      "Bonjour SDK for Windows. Make sure BONJOUR_SDK_HOME is set",
+      "node >=0.7.9",
+      "Microsoft Visual Studio Express"
+    ],
+    "linux": [
+      "avahi daemon",
+      "avahi dns_sd compat library and its header files"
+    ],
+    "android": null,
+    "ios": null
+  },
   "keywords": [
     "meshblu-connector",
     "gateblu"
