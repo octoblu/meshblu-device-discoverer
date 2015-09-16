@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- '0.11'
+- '0.10'
 addons:
   apt:
     sources:
@@ -16,6 +16,7 @@ compiler: clang
 before_install:
   - npm install node-gyp -g
   - npm install node-pre-gyp
+  - npm install npm -g
 install:
   - npm install --build-from-source
   - npm test
@@ -36,4 +37,3 @@ deploy:
     on:
       tags: true
       all_branches: true
-      node: '0.11'
