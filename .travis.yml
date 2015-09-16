@@ -4,7 +4,13 @@ node_js:
 addons:
   apt:
     packages:
+      - libcv-dev
+      - libopencv-dev
+      - libhighgui-dev
       - libavahi-compat-libdnssd-dev
+before_install:
+  - npm install node-gyp -g
+  - npm install node-pre-gyp
 deploy:
   - provider: npm
     skip_cleanup: true
