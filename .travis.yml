@@ -8,9 +8,20 @@ addons:
       - libopencv-dev
       - libhighgui-dev
       - libavahi-compat-libdnssd-dev
+compiler: clang
 before_install:
   - npm install node-gyp -g
   - npm install node-pre-gyp
+install:
+  - npm install --build-from-source
+  - npm test
+before_script:
+  - echo "Publishing native platform Binary Package? ->" $PUBLISH_BINARY
+  - node-pre-gyp package publish
+  - node-pre-gyp clean
+  - node-gyp clean
+after_success:
+  - node-pre-gyp info
 deploy:
   - provider: npm
     skip_cleanup: true
