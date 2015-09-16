@@ -1,19 +1,14 @@
 language: node_js
+sudo: true
 node_js:
 - '0.10'
-addons:
-  apt:
-    sources:
-      - ppa:fkrull/deadsnakes
-    packages:
-      - libcv-dev
-      - libopencv-dev
-      - libhighgui-dev
-      - libavahi-compat-libdnssd-dev
-      - build-essential
-      - python2.7
 compiler: clang
 before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq libcv-dev
+  - sudo apt-get install -qq libopencv-dev
+  - sudo apt-get install -qq libhighgui-dev
+  - sudo apt-get install -qq libavahi-compat-libdnssd-dev
   - npm install node-gyp -g
   - npm install node-pre-gyp
   - npm install npm -g
