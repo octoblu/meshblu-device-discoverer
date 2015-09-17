@@ -10,18 +10,10 @@ before_install:
   - sudo apt-get install -qq libhighgui-dev
   - sudo apt-get install -qq libavahi-compat-libdnssd-dev
   - npm install node-gyp -g
-  - npm install node-pre-gyp
   - npm install npm -g
 install:
   - npm install --build-from-source
   - npm test
-before_script:
-  - echo "Publishing native platform Binary Package? ->" $PUBLISH_BINARY
-  - node-pre-gyp package publish
-  - node-pre-gyp clean
-  - node-gyp clean
-after_success:
-  - node-pre-gyp info
 deploy:
   - provider: npm
     skip_cleanup: true
