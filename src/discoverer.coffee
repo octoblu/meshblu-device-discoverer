@@ -5,8 +5,12 @@ Chromecast     = require './devices/chromecast'
 Lifx           = require './devices/lifx'
 Hue            = require './devices/hue'
 
+SEARCH_INTERVAL=3 * 60 * 1000
+
 class Discoverer extends EventEmitter
   constructor: (@config={})->
+    @config.options ?= {}
+    @config.options.searchInterval ?= SEARCH_INTERVAL
     @chromecast = new Chromecast @config
     @lifx       = new Lifx @config
     @hue        = new Hue @config
@@ -23,8 +27,9 @@ class Discoverer extends EventEmitter
     @searchForDevice @hue
     @searchForDevice @lifx
     @searchForDevice @chromecast
-    debug 'searchInterval', @config.options.searchInterval
-    _.delay @search, @config.options.searchInterval || 3 * 60 * 1000
+    searchInterval = @config.options?.searchInterval || SEARCH_INTERVAL
+    debug 'searchInterval', searchInterval
+    _.delay @search, searchInterval
 
   searchForDevice: (device) =>
     device.search()
